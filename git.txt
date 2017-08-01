@@ -1,0 +1,236 @@
+staging area(中转区)==index
+
+git init：初始化git仓库
+git status：查看状态
+git add <filename>：添加文件到staging area
+git add -A . ：添加所有文件，包括子目录
+git reset <filename>：将文件从staging area移除
+git reset HEAD~1：将之前的一个提交回滚
+git reset：将staging area中内容移除
+
+staging area：是一个提交文件到git之前组织在一起的地方
+commit：仓库的一个快照，便于查看更改的时间线
+
+git add '*.txt'：使用通配符添加当前目录及子目录文件
+
+git commit -m 'commit message'
+git log：日志
+git log --summary：更多信息
+
+git remote add <remote name> <repository URL>：添加远程仓库
+git push -u <remote name> <local branch>：推送本地改变到远程仓库，-u指示git记住参数
+git pull <remote name> <local branch>：拉远程到本地
+
+git stash：将未提交的改变藏匿起来
+git stash apply：重新应用改变
+
+git diff HEAD：查看改变，HEAD（最新的提交）
+
+git diff --staged：查看上演（staged）的改变
+git checkout -- <filename>：文件被回滚到最后一次提交filename时，--不可少，否则会切换到filename分支
+
+git branch <branch name>：创建分支
+git checkout <branch name>：切换分支
+git checkout -b <branch name>：创建并切换分支
+
+git rm '*.txt'：从磁盘删除文件，并上演（stage）文件的删除
+git rm -r <firectory>：删除文件夹里的所有文件
+
+git commit -am <commit message>：提交时自动移除删除的文件（-a，如果没有用git rm命令删除文件时）
+
+git merge <branch name>：将branch name分支合并到当前分支
+git merge --squash <branch name>：将branch name 分支的提交合并成一个提交再合并到当前分支
+git branch -d <branch name>：删除分支，该分支已被合并，否则需要加上--force(-f)，或者使用-D表示-d -f
+
+
+git config --global user.name "<Username>"
+git config --global user.email "<Email address>"
+Set Git output color:git config --global color.ui auto
+
+git remote add <name> <url>：给远程仓库添加别名
+git push -u origin master：推到远程分支，-u可以在下次时省略分支名
+git clone <repository> <directory>：克隆远程分支到本地文件夹
+git pull <repository> <refspec>：git pull origin master远程仓库名，远程分支名
+
+git log：--graph图格式显示 --oneline压缩输出信息到一行
+
+HEAD~1:HEAD的第一个父亲节点
+HEAD~n:HEAD的第一个父亲的父亲...（n个）节点
+HEAD^1:HEAD的第一个父亲节点，如果父亲节点只有一个，可以用HEAD^表示
+HEAD^n:HEAD的第n个父亲节点
+
+git reset --hard HEAD~：回滚之前的更改
+
+git rebase <branchname>：将当前分支rebase到分支上（分支上会有当前分支的提交记录）
+rebase冲突发生后：git add <filename>,git rebase --continue（继续rebase）
+git rebase --abort（中止rebase）
+rebase后需要进一步merge
+
+git fetch：将远程仓库的修改取回到本地，之后还需要git merge FETCH_HEAD
+
+
+git tag <tagname>：添加标签
+git log --decorate：log中包含标签
+git tag -a <tagname>：添加注解标签
+git tag -am "message information" <tagname>
+git tag -n：附带笔记note的标签
+git tag -d <tagname>：删除标签
+
+git commit --amend：更改之前提交的信息
+
+git revert HEAD：将HEAD回滚到之前的版本，会新加一个提交
+git reset --hard HEAD~~：回滚之前的两个提交
+git reset --hard  ：回滚到之前回滚操作起始的地方
+
+git cherry-pick <commit_id>：将另外一个分支的内容指定提交的内容合并到当前分支，<commit_id>为另一分支某个提交的hash
+
+git revert：回滚之前的修改，新增加一个提交。如果提交已经push到了远程，用这种方式可以避免远程仓库和别人本地的不一致。回滚到指定版本之前
+git reset：回滚之前的提交，不增加新的提交。设置到指定版本
+git checkout <commit_id>：临时切换到该提交之后
+git checkout -b <branchname> <commit_id>：创建指定提交的分支
+
+git rebase -i HEAD~~：将之前两个提交合并（会进入编辑界面编辑）
+
+
+
+
+git add <filepattern>：将文件或目录注册到索引，-p会有提示，-i交互地注册更改的文件
+git commit：提交被索引的文件，-a检测已更改的文件（新添加的文件除外），将它们添加到索引中，并提交它们，-m制定提交信息
+git status：-s展示更改的文件名，-s -b输出中包含分支名
+git diff：工作树与索引之间的不同，--cached索引与HEAD的不同。指定commitid，比较工作树与commit的不同
+git show <commit>：查看提交详细信息
+git mv <oldfilename> <newfilename>：更改文件或文件夹名
+git rm <file>：删除文件
+git clean：从工作树中删除未跟踪的文件，-n展示要被删除的文件，-f真正删除文件，-x可以删除.gitignore的配置文件
+git checkout <commit_id> -- <file>：恢复工作树种被更改的文件
+git reset HEAD -- <file>：从索引中删除文件
+git add -u：从仅添加到索引的文件注册更改
+git branch：查看分支，-r远程分支，-a所有分支
+git branch -m <oldbranch> <newbranch>：重命名分支
+git branch -d <branchname>：删除分支,-D强制删除
+git checkout <branch>：切换分支，-b创建分支并切换
+git merge <branch>：合并分支到当前分支，--no-ff快速前进 no fast forward，合并时创建一个新的提交 
+
+git tag：查看标签，-n展示每个标签的注解
+git tag <tagname>：创建标签
+git tag -a <tagname>：创建附带评论的标签
+git tag -d <tagname>：删除标签
+
+ssh-keygen：设置SSH连接
+git commit --amend：更改之前提交的信息
+
+Amend past commit
+git rebase -i <commit>
+Assign a commit hash and a list of all commits up to the assigned commit will be listed. Find the commit you wish to amend, and change that line from "pick" to "edit", then save and quit.
+Next, assign the --amend option to commit. A screen for adding comments will be displayed. Amend the comment.
+git commit --amend
+Finally, assign the --continue option to run rebase.
+git rebase --continue
+
+git rebase --abort：退出rebase
+git reflog：查看HEAD过去用于指示的提交列表。
+git reflog <ref>：查看分支提示的更改
+git reset --hard <commit>：回滚提交
+git log --grep "<pattern>":展示匹配的评论
+
+git clone <url>：克隆仓库
+git remote add <name> <url>：添加远程仓库
+git remote：查看远程存储库列表，-v查看远程仓库细节
+git checkout <branch>：根据远程存储库中的一个分支，在本地存储库中创建一个分支。old version：git branch <branchname> origin/<branch>
+git push <repository> <refspec>：在远程存储库中创建分支/将更改推送到远程存储库中的分支。-u，允许git在成功推送本地分支时向远程仓库添加跟踪引用
+git fetch <repository> <refspec>：省略repository，与push命令相同。省略refspec，fetch会应用到远程仓库的所有分支
+git pull <repository> <refspec>：省略存储库名称将产生与push命令相同的操作。 省略refspec参数将确保拉只适用于当前分支。
+git push --delete <repository> <branchname>：删除远程仓库的分支。1.7更早的版本：git push <repository> :<branchname>
+git push <repository> <tagname>：远程仓库中创建标签。--tags，本地仓库中的所有标签都被推并创建在远程仓库
+git push --delete <repository> <tagname>：删除远程仓库的标签。1.7更早的版本：git push <repository> :<tagname>
+git remote set-url <name> <newurl>：更改本地仓库中存在的预配置的远程仓库的地址
+git remote rename <old> <new>：更改本地仓库中存在的预配置的远程仓库的名字
+
+git config --global user.name <username>
+git config --global user.email <mailaddress>：没有--global选项，此设置将仅适用于特定的存储库
+git config --global color.ui auto：彩色显示输出
+git config --global alias.<aliasname> <commandname>：设置Git命令的别名
+echo <filename> >> .gitignore：从版本控制跟踪中删除文件
+cd <dirname>;touch .gitkeep：跟踪版本控制下的空目录（Git不跟踪空目录）
+git config --global --list：显示配置
+git config --global http.proxy <address of the proxy server>:<port of the proxy server>：设置到代理服务器的HTTP连接
+也可以在.gitconfig中增加
+[http]
+proxy = <address of the proxy server>:<port of the proxy server>
+git config --global http.proxy http://<username>:<password>@<address of the proxy server>:<port of the proxy server>：建立与用户认证代理服务器的HTTP连接
+也可以在.gitconfig中增加
+[http]
+proxy = http://<username>:<password>@<address of the proxy server>:<port of the proxy server>
+
+git stash save <message>：暂时保存我目前的变更，如果不需要添加标签，可省略save
+git stash list：查看我的收件箱列表
+git stash pop：从收件箱中恢复最新更改，指定stash ID，可从特定stash中恢复
+git stash drop：删除最新隐藏，指定stash ID，可将特定stash删除
+git stash clear：删除所有隐藏
+
+提交回滚：
+git reset --soft/--mixed/--hard <commit_id>/HEAD^n
+git checkout <branchname>/<commit_id>：切换到某个commit时，如果你当前的HEAD没有任何分支引用，那么这会造成HEAD分离。这是非常危险的，如果你接着添加新的提交，然后切换到别的分支之后就没办法回到之前添加的这些提交。因此，在为分离的HEAD添加新的提交的时候你应该创建一个新的分支。
+
+文件回滚：
+git reset <commit_id>/HEAD^n <filepath>：回滚文件，回滚到缓存区。缓存区文件一定变化，工作目录文件一定不变
+git checkout <commit_id>/HEAD^n <filepath>
+
+
+Command			Scope			Common use cases
+git reset		Commit-level	Discard commits in a private branch or throw away uncommited changes
+git reset		File-level		Unstage a file
+git checkout	Commit-level	Switch between branches or inspect old snapshots
+git checkout	File-level		Discard changes in the working directory
+git revert		Commit-level	Undo commits in a public branch
+git revert		File-level		(N/A)
+
+
+git push origin --delete <branch_name>：删除远程分支
+git push origin :<branch_name>
+
+git diff：比较缓存区与工作树之间的区别
+git diff --cached：比较缓存区与HEAD之间的区别
+git diff HEAD：比较工作树与HEAD之间的区别
+
+git add -A ： stages All
+git add . ：stages new and modified, without deleted
+git add -u ： stages modified and deleted, without new
+
+
+git init：初始化仓库，可在一个存在的项目的根路径中执行
+git pull <remote>：merge
+git pull --rebase <remote>：rebase
+
+git reset --hard <remote>/<branch>：本地分支和远程分支不一致时，可以使用远程分支覆盖掉本地分支
+
+
+git commit --amend：缓存区没有文件，修改之前的提交（删除旧的，创建一个新的）。缓存区有文件，将缓存区的文件合并到之前的提交，修改之前的提交。push到远程仓库后，不推荐。
+git rebase <base>：将当前分支重新分配到<base>上
+git rebase -i <base>：将当前分支重新分配到<base>上，但使用交互式的rebase会话。
+git reflog：显示本地存储库的reflog。--relative-date：显示日期相关的reflog
+每次当前的HEAD更新（通过切换分支机构，拉入新的更改pull，重写历史记录或简单地添加新的提交），一个新的条目将被添加到reflog
+git reset --hard <reflog_commit_id>：回滚本地的修改到reflog_commit_id之后。
+
+git remote：展示远程连接，-v包括URL地址
+git remote add <name> <url>：创建远程仓库的新连接
+git remote rm <name>：删除远程仓库连接
+git remote rename <old-name> <new-name>：重命名
+git clone操作的时候会自动创建一个名为origin指向被克隆库的连接
+git fetch <remote>：获取所有分支的提交
+git fetch <remote> <branch>：获取一个分支的提交
+git pull <remote>:获取当前分支的更新并合并到本地。git fetch <remote>   git merge origin/<current-branch>
+git pull --rebase <remote>：使用rebase合并分支
+git push <remote> <branch>：将指定分支以及所有必需的提交和内部对象推送到远程。在远程仓库创建一个本地分支。fast-forward
+git push <remote> --force：non-fast-forward，强推
+git push <remote> --all：推送所有
+git push <remote> --tags：推送本地标签到远程仓库，默认，--all不推送
+
+git rev-parse HEAD/<branch>：获取commitid
+
+git remote set-url <remote repository name> <url>：更改远程仓库url
+
+
+
+git config --global --unset user.name
+git config --global --unset user.email

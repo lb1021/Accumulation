@@ -1,0 +1,23 @@
+maven冲突查看：
+mvn dependency:tree -Dverbose -Dincludes=groupId:artifactId
+-Dverbose：查看所有依赖
+-Dincludes：过滤
+
+<exclusions>   
+	<!-- 排除依赖 -->  
+	<exclusion>  
+		<groupId>asm</groupId>  
+		<artifactId>asm</artifactId> 
+		</exclusion>  
+</exclusions>   
+
+
+
+mvn dependency:resolve 打印出已解决依赖的列表 
+
+mvn dependency:tree > tree.txt 导出maven依赖
+
+创建maven项目：mvn archetype:generate -DgroupId={project-packaging} -DartifactId={project-name}-DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+mvn 安装：mvn install:install-file -Dfile=c:\kaptcha-{version}.jar -DgroupId=com.google.code -DartifactId=kaptcha -Dversion={version} -Dpackaging=jar
+
+转为eclipse项目：mvn eclipse:eclipse
