@@ -25,6 +25,7 @@ HostName github.com
 User username
 IdentityFile ~/.ssh/github_rsa
 
+添加公钥到github上
 
 测试：
 ssh -T git@github.com
