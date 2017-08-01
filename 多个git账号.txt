@@ -1,0 +1,39 @@
+生成一个新的ssh key，生成时可以输入路径名，文件名：
+ssh-keygen -t rsa -C "yourmail@gmail.com"
+
+添加私钥：
+ssh-add ~/.ssh/id_rsa
+ssh-add ~/.ssh/github_rsa
+报错：Could not open a connection to your authentication agent
+执行ssh-agent bash，再运行ssh-add
+
+可以通过 ssh-add -l 来确私钥列表
+ssh-add -l
+可以通过 ssh-add -D 来清空私钥列表
+ssh-add -D
+
+在.ssh-add目录下新建config文件，配置如下：
+# Default
+Host gitlab.com
+HostName gitlab.com
+User username
+IdentityFile ~/.ssh/id_rsa
+  
+# github
+Host github.com
+HostName github.com
+User username
+IdentityFile ~/.ssh/github_rsa
+
+
+测试：
+ssh -T git@github.com
+debug：ssh -vT git@github.com
+
+git有全局user.name和user.email的，需要取消
+git config --global --unset user.name
+git config --global --unset user.email
+
+给每一个仓库设置自己的
+git config user.name <Username>
+git config user.email <Email address>
