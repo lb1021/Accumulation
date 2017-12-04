@@ -1,0 +1,13 @@
+生成ssh key，可以更改位置，输入密码：
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+确保ssh agent启动
+eval $(ssh-agent -s)
+
+未启动，执行ssh-agent bash
+
+添加私钥：
+ssh-add ~/.ssh/id_rsa
+
+复制公钥：
+clip < ~/.ssh/id_rsa.pub
