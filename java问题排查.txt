@@ -1,0 +1,32 @@
+GC频繁
+jmap -histo[:live] {pid} 找到内存占用最多的Class
+
+Flight Recorder发现内存分配最多的代码路路径
+
+Flight Recorder使用：
+远程/usr/java/default/bin/jcmd {pid} JFR.start duration={time} settings=profile filename={path} 
+
+
+
+找到CPU使用高的线程
+top -H -p {pid} 
+jstack {pid} > {filePath} 
+在jstack结果中找到对应的线程堆栈
+
+内存泄漏
+Heap 
+OOM
+多次Full GC后占用的内存呈上升趋势
+
+非Heap 
+进程crash
+top显示进程占用的RES内存不断上升(远大于Xmx设置值)
+
+
+排查方法-堆内
+jmap -dump:live,format=b,file={filePath} {pid} 
+通过MAT进行分析
+
+非Heap
+检查代码中是否大量使用String.intern() 
+线程数量是否过多(每个线程会占用-Xss大小的非Heap内存)
